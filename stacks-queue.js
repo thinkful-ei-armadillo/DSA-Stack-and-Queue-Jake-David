@@ -439,4 +439,6 @@ function square(pairs){
   return result;
 }
 
+// to make more efficient, check the queues as we loop through the dancers array and enqueue / edit result appropriately
+
 square(dancePairs);
