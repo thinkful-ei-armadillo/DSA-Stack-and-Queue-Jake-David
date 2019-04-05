@@ -94,23 +94,37 @@ function display(stack){
   }
 }
 
+// function is_palindrome(s) {
+//   s = s.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
+//   let stacki = new Stack;
+//   let stackj = new Stack;
+//   for(let i = 0;i < s.length; i++){
+//     stacki.push(s[i]);
+//   } 
+//   for(let j = s.length-1;j >= 0; j--){
+//     stackj.push(s[j]);
+//   } 
+
+//   while(stacki.top !== null){
+//     if(stacki.top.value !== stackj.top.value){
+//       return false;
+//     }
+//     stacki.pop();
+//     stackj.pop();
+//   }
+//   return true;
+// }
+
 function is_palindrome(s) {
   s = s.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
-  let stacki = new Stack;
-  let stackj = new Stack;
-  for(let i = 0;i < s.length; i++){
-    stacki.push(s[i]);
-  } 
-  for(let j = s.length-1;j >= 0; j--){
-    stackj.push(s[j]);
-  } 
-
-  while(stacki.top !== null){
-    if(stacki.top.value !== stackj.top.value){
+  let compStack = new Stack;
+  for(let i = 0; i<s.length;i++){
+    compStack.push(s[i]);
+  }
+  for(let i = 0; i<s.length-1;i++){
+    if(compStack.pop() !== s[i]){
       return false;
     }
-    stacki.pop();
-    stackj.pop();
   }
   return true;
 }
@@ -141,9 +155,67 @@ function matchParens(str){
   console.log('no closing parenthesis');
 }
 
-matchParens('abc(asdf)asdflkj');
-matchParens('asdflkjqwer)');
-matchParens('asldkjfqwer(adflk');
+// matchParens('abc(asdf)asdflkj');
+// matchParens('asdflkjqwer)');
+// matchParens('asldkjfqwer(adflk');
+
+// function sort(stack){
+//   let tempStack = new Stack;
+//   let temp = stack.top.value;
+  
+//   //if tempStack.top = null pop stack && push temp to tempStack
+//   if(tempStack.top === null){
+//     tempStack.push(temp);
+//     stack.pop();
+//     temp = stack.top.value;
+    
+//   }
+//   while(stack.top !== null && temp !== null){
+//     if(tempStack.top === null){
+//       tempStack.push(temp); //push 9
+//       temp = stack.top.value; // temp = 7
+//     }
+//     if(tempStack.top !== null && tempStack.top.value < temp){  //tempStack.top = 9 && 9 < 7
+//       tempStack.push(temp);
+//       temp = stack.pop();
+//     } else{
+//       stack.push(tempStack.pop()); // get rid 9
+//       tempStack.push(temp); //push 7 to tempStack
+//       temp = stack.pop();
+//     }
+//   }
+//   if(stack.top === null){
+//     stack.push(temp);
+//     console.log('empty stack')
+  
+//   }
+  
+//   while(tempStack.top !== null){
+//     stack.push(tempStack.pop());
+    
+//   }
+
+//   return stack;
+//   //if tempStack.top !== null and temp > tempStack.top.value
+//   // then push temp to tempStack
+//   // else  stack.push(tempStack.pop())
+//   // if stack.top === null while tempStack.top !null push to stack
+// }
+
+// function sortingList(){
+//   let list = new Stack;
+//   list.push(1);
+//   list.push(4);
+//   list.push(3);
+//   list.push(7);
+//   list.push(9);
+//   return list;
+// }
+// sortingList();
+
+// display(sort(sortingList()));
+
+
 
 function main(){
   let starTrek = new Stack;
