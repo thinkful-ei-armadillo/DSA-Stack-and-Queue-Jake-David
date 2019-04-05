@@ -94,6 +94,56 @@ function display(stack){
   }
 }
 
+function is_palindrome(s) {
+  s = s.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
+  let stacki = new Stack;
+  let stackj = new Stack;
+  for(let i = 0;i < s.length; i++){
+    stacki.push(s[i]);
+  } 
+  for(let j = s.length-1;j >= 0; j--){
+    stackj.push(s[j]);
+  } 
+
+  while(stacki.top !== null){
+    if(stacki.top.value !== stackj.top.value){
+      return false;
+    }
+    stacki.pop();
+    stackj.pop();
+  }
+  return true;
+}
+
+// True, true, true, false
+// console.log(is_palindrome('dad'));
+// console.log(is_palindrome('A man, a plan, a canal: Panama'));
+// console.log(is_palindrome('1001'));
+// console.log(is_palindrome('Tauhida'));
+
+function matchParens(str){
+  let parenStack = new Stack;
+  let openParen = null;
+  for(let i = 0; i < str.length; i++){
+    if (str[i] === '('){
+      openParen = i;
+    }
+    if(str[i] === ')' && openParen !== null){
+      console.log('looking good');
+      return;
+    }
+    if(str[i] === ')' && openParen === null){
+      console.log('no opening parenthesis');
+      return i;
+    }
+    parenStack.push(str[i]);
+  }
+  console.log('no closing parenthesis');
+}
+
+matchParens('abc(asdf)asdflkj');
+matchParens('asdflkjqwer)');
+matchParens('asldkjfqwer(adflk');
 
 function main(){
   let starTrek = new Stack;
@@ -108,4 +158,4 @@ function main(){
   starTrek.pop();
   display(starTrek);
 }
-main();
+// main();
