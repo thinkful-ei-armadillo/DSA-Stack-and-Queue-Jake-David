@@ -68,6 +68,49 @@ class Queue {
   }
 
 }
+
+/*********************************************************************************************/
+
+
+class _queueNodeDLL {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+    this.prev = null;
+  }
+}
+
+class QueueDLL {
+  constructor() {
+    this.first = null;
+    this.last = null;
+  }
+
+  enqueue(value){
+    const node = new _queueNode(value);
+    if (this.first === null) {
+      this.first = node;
+    }
+    if (this.last) {
+      node.prev = this.last;
+      this.last.next = node;
+    }
+    this.last = node;
+  }
+
+  dequeue(){
+    if (this.first === null) {
+      return;
+    }
+    const node = this.first;
+    this.first = this.first.next;
+    this.first.prev = null;
+    if(node === this.last){
+      this.last = null;
+    }
+    return node.value;
+  }
+}
 /*********************************************************************************************/
 
 function peek(stack){
@@ -231,3 +274,169 @@ function main(){
   display(starTrek);
 }
 // main();
+
+function q(){
+  let starTrekQ = new Queue;
+  starTrekQ.enqueue('Kirk');
+  starTrekQ.enqueue('Spock');
+  starTrekQ.enqueue('Uhura');
+  starTrekQ.enqueue('Sulu');
+  starTrekQ.enqueue('Checkov');
+  starTrekQ.dequeue();
+  starTrekQ.dequeue();
+  displayQ(starTrekQ);
+}
+
+
+function peekQ(stack){
+  if(stack.first === null){
+    console.log('Nothing here...');
+    return null;
+  }
+  console.log(stack.first.value);
+  return stack.first.value;
+}
+function isEmptyQ(stack) {
+  if(stack.first === null){
+    console.log(true);
+    return true;
+  }
+  console.log(false);
+  return false;
+}
+function displayQ(stack){
+  let current = stack.first;
+  while(current !== null){
+    console.log(current.value);
+    current = current.next;
+  }
+}
+
+
+function qDLL(){
+  let starTrekQ = new QueueDLL;
+  starTrekQ.enqueue('Kirk');
+  starTrekQ.enqueue('Spock');
+  starTrekQ.enqueue('Uhura');
+  starTrekQ.enqueue('Sulu');
+  starTrekQ.enqueue('Checkov');
+  starTrekQ.dequeue();
+  starTrekQ.dequeue();
+  displayQ(starTrekQ);
+}
+
+// qDLL();
+
+
+class QueueStack {
+  constructor() {
+    this.stack1 = new Stack;
+    this.stack2 = new Stack;
+  }
+  enqueue(value){
+    this.stack1.push(value);
+  }
+
+  dequeue(){
+    if(peek(this.stack1) === null && peek(this.stack2) === null){
+      return 'queue is empty';
+    }
+    while(peek(this.stack1) !== null){
+      this.stack2.push(this.stack1.pop());
+    }
+  }
+}
+
+function displayQS(QS){
+  let current = QS.top;
+  while(current !== null){
+    console.log(current.value);
+    current = current.next;
+  }
+}
+
+function QS(){
+  let starTrekQS = new QueueStack;
+  starTrekQS.enqueue('Kirk');
+  starTrekQS.enqueue('Spock');
+  starTrekQS.enqueue('Uhura');
+  starTrekQS.enqueue('Sulu');
+  starTrekQS.enqueue('Checkov');
+  starTrekQS.dequeue();
+  displayQS(starTrekQS.stack1);
+  displayQS(starTrekQS.stack2);
+}
+
+// QS();
+
+const dancePairs = [
+  {
+    gender: 'F',
+    name: 'Jane'
+  }, 
+  {
+    gender: 'M',
+    name: 'Frank'
+  },
+  {
+    gender: 'M',
+    name: 'John'
+  },
+  {
+    gender: 'M',
+    name: 'Sherlock'
+  },
+  {
+    gender: 'F',
+    name: 'Madonna'
+  },
+  {
+    gender: 'M',
+    name: 'David'
+  },
+  {
+    gender:  'M',
+    name: 'Christopher'
+  },
+  {
+    gender: 'F',
+    name: 'Beyonce'
+  },
+];
+
+function square(pairs){
+  let w = new Queue;
+  let m = new Queue;
+  let result = '';
+  for(let i = 0; i < pairs.length; i++){
+    if(pairs[i].gender === 'F'){
+      w.enqueue(pairs[i].name);
+    } else{
+      m.enqueue(pairs[i].name);
+    }
+  }
+  while(w.first !== null && m.first !== null){
+    result += `Female dancer is ${w.dequeue()}, and the male dancer is ${m.dequeue()};`;
+  }
+  if(m.first === null || w.first === null){
+    let maleCount = 0;
+    let femaleCount = 0;
+    while(m.first !== null){
+      m.dequeue();
+      maleCount++;
+    }
+    while(w.first !== null){
+      w.dequeue();
+      femaleCount++;
+    }
+    if(maleCount !== 0){
+      result += `There are ${maleCount} male dancers waiting to dance.`;
+    }else {
+      result += `There are ${femaleCount} female dancers waiting to dance.`;
+    }
+  }
+  console.log(result);
+  return result;
+}
+
+square(dancePairs);
